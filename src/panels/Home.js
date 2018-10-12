@@ -13,6 +13,11 @@ const Home = props => (
 			>
 				{`${props.fetchedUser.first_name} ${props.fetchedUser.last_name}`}
 			</ListItem>
+			<ListItem multiline>
+				{`Geoposition is available: ${props.geo.available ? 'true' : 'false'}`}
+        {`Latitude: ${props.geo.lat}`}
+        {`Longitude: ${props.geo.long}`}
+			</ListItem>
 		</Group>}
 
 		<Group title="Navigation Example">
@@ -28,6 +33,11 @@ const Home = props => (
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
+	geo: PropTypes.shape({
+    available: PropTypes.number,
+    lat: PropTypes.any,
+    long: PropTypes.any
+	}),
 	fetchedUser: PropTypes.shape({
 		photo_200: PropTypes.string,
 		first_name: PropTypes.string,

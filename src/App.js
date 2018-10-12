@@ -1,46 +1,55 @@
 import React from 'react';
 import connect from '@vkontakte/vkui-connect';
-import { View } from '@vkontakte/vkui';
+import {View} from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-			activePanel: 'home',
-			fetchedUser: null,
-		};
-	}
+    this.state = {
+      activePanel: 'home',
+      fetchedUser: null,
+      geo: {
+        available: 0,
+        lat: null,
+        long: null
+      }
+    };
+  }
 
-	componentDidMount() {
-		connect.subscribe((e) => {
-			switch (e.detail.type) {
-				case 'VKWebAppGetUserInfoResult':
-					this.setState({ fetchedUser: e.detail.data });
-					break;
-				default:
-					console.log(e.detail.type);
-			}
-		});
-		connect.send('VKWebAppGetUserInfo', {});
-	}
+  componentDidMount() {
+    connect.subscribe((e) => {
+      switch (e.detail.type) {
+        case 'VKWebAppGetUserInfoResult':
+          this.setState({fetchedUser: e.detail.data});
+          break;
+        case 'VKWebAppGeodataResult':
+          this.setState(() => ({geo: e.detail.data}));
+          break;
+        default:
+          console.log(e.detail.type);
+      }
+    });
+    connect.send('VKWebAppGetUserInfo', {});
+    connect.send("VKWebAppGetGeodata", {});
+  }
 
-	go = (e) => {
-		this.setState({ activePanel: e.currentTarget.dataset.to })
-	};
+  go = (e) => {
+    this.setState({activePanel: e.currentTarget.dataset.to})
+  };
 
-	render() {
-		return (
-			<View activePanel={this.state.activePanel}>
-				<Home id="home" fetchedUser={this.state.fetchedUser} go={this.go} />
-				<Persik id="persik" go={this.go} />
-			</View>
-		);
-	}
+  render() {
+    return (
+      <View activePanel={this.state.activePanel}>
+        <Home id="home" fetchedUser={this.state.fetchedUser} geo={this.state.geo} go={this.go}/>
+        <Persik id="persik" go={this.go}/>
+      </View>
+    );
+  }
 }
 
 export default App;
