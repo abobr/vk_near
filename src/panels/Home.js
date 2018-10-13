@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Panel, ListItem, Button, Group, Div, Avatar, PanelHeader} from '@vkontakte/vkui';
+import config from '../version.json';
 
 const Home = props => (
   <Panel id={props.id}>
     <PanelHeader>Example</PanelHeader>
     {props.fetchedUser &&
-    <Group title="User Data Fetched with VK Connect 8">
+    <Group title="User Data Fetched with VK Connect 9">
       <ListItem
         before={<Avatar src={props.fetchedUser.photo_200}/>}
         description={props.fetchedUser.city.title}
@@ -28,17 +29,32 @@ const Home = props => (
     </Group>}
 
     {props.searchResult &&
-    <Div>
-      {`Results of search: ${props.searchResult.response ? props.searchResult.response.length : 'undefined'}`}
-    </Div>
+    <Group title="Results of search:">
+      <Div>
+        {props.searchResult.response ? props.searchResult.response.length : 'undefined'}
+      </Div>
+      {props.searchResult.response.map(respItem => {
+        return (<Div>
+          {respItem}
+        </Div>)
+      })}
+    </Group>
     }
     {props.searchErr &&
-    <Div>
-      {`Error of search: ${JSON.stringify(props.searchErr)}`}
-    </Div>
+    <Group title="Error of search:">
+      <Div>
+        {JSON.stringify(props.searchErr)}
+      </Div>
+    </Group>
     }
 
-    <Group title="Navigation Example">
+    <Group title={`Navigation Example ${config.version}`}>
+      <Div>
+        {config.version}
+      </Div>
+      <Div>
+        {config.timestamp}
+      </Div>
       <Div>
         <Button size="xl" level="2" onClick={props.go} data-to="persik">
           Show me the Persik, please

@@ -57,10 +57,16 @@ class App extends React.Component {
 
   search = () => {
     const {token, geo} = this.state;
+    // connect.send("VKWebAppCallAPIMethod", {
+    //   "method": "users.getNearby",
+    //   "params": {"latitude": geo.lat, "longitude": geo.long, "v": "5.80", "access_token": token.access_token}
+    // });
+
     connect.send("VKWebAppCallAPIMethod", {
-      "method": "users.getNearby",
-      "params": {"latitude": geo.lat, "longitude": geo.long, "v": "5.80", "access_token": token.access_token}
+      "method": "users.get",
+      "params": {"user_ids": "abobr", "fields": "bdate", "v": "5.80", "access_token": token.access_token}
     });
+
   };
 
 

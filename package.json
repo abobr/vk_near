@@ -2,13 +2,14 @@
   "name": "vk_near",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://abobr.github.io/build",
+  "homepage": "https://abobr.github.io",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env PORT=10888 react-scripts start",
+    "start": "npm run increment && cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build -b master",
-    "predeploy": "npm run build"
+    "predeploy": "npm run increment && npm run build",
+    "increment": "node ./scripts/incrementAppVersion.js"
   },
   "keywords": [],
   "author": "",
