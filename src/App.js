@@ -15,6 +15,7 @@ class App extends React.Component {
       fetchedUser: null,
       token: null,
       searchResult: null,
+      searchErr: null,
       geo: {
         available: 0,
         lat: null,
@@ -37,6 +38,9 @@ class App extends React.Component {
           break;
         case 'VKWebAppCallAPIMethodResult':
           this.setState(() => ({searchResult: e.detail.data}));
+          break;
+        case 'VKWebAppCallAPIMethodFailed':
+          this.setState(() => ({searchErr: e.detail.data}));
           break;
         default:
           console.log(e.detail.type);
@@ -70,6 +74,7 @@ class App extends React.Component {
               go={this.go}
               search={this.search}
               searchResult={this.state.searchResult}
+              searchErr={this.state.searchErr}
         />
         <Persik id="persik" go={this.go}/>
       </View>
