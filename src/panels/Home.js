@@ -6,7 +6,7 @@ const Home = props => (
 	<Panel id={props.id}>
 		<PanelHeader>Example</PanelHeader>
 		{props.fetchedUser &&
-		<Group title="User Data Fetched with VK Connect 6">
+		<Group title="User Data Fetched with VK Connect 7">
 			<ListItem
 				before={<Avatar src={props.fetchedUser.photo_200}/>}
 				description={props.fetchedUser.city.title}
