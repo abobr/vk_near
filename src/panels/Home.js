@@ -13,8 +13,8 @@ const Home = props => (
 			>
 				{`${props.fetchedUser.first_name} ${props.fetchedUser.last_name}`}
 			</ListItem>
-			<ListItem description={props.token}>
-				Test Item
+			<ListItem>
+        {props.token}
 			</ListItem>
 			<ListItem multiline>
 				{`Geoposition is available: ${props.geo.available ? 'true' : 'false'}`}
