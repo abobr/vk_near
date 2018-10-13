@@ -14,6 +14,7 @@ class App extends React.Component {
       activePanel: 'home',
       fetchedUser: null,
       token: null,
+      searchResult: null,
       geo: {
         available: 0,
         lat: null,
@@ -34,6 +35,9 @@ class App extends React.Component {
         case 'VKWebAppAccessTokenReceived':
           this.setState(() => ({token: e.detail.data}));
           break;
+        case 'VKWebAppCallAPIMethodResult':
+          this.setState(() => ({searchResult: e.detail.data}));
+          break;
         default:
           console.log(e.detail.type);
       }
@@ -47,10 +51,26 @@ class App extends React.Component {
     this.setState({activePanel: e.currentTarget.dataset.to})
   };
 
+  search = () => {
+    const {token, geo} = this.state;
+    connect.send("VKWebAppCallAPIMethod", {
+      "method": "users.getNearby",
+      "params": {"latitude": geo.lat, "longitude": geo.long, "v": "5.80", "access_token": token.access_token}
+    });
+  };
+
+
   render() {
     return (
       <View activePanel={this.state.activePanel}>
-        <Home id="home" fetchedUser={this.state.fetchedUser} geo={this.state.geo} token={this.state.token} go={this.go}/>
+        <Home id="home"
+              fetchedUser={this.state.fetchedUser}
+              geo={this.state.geo}
+              token={this.state.token}
+              go={this.go}
+              search={this.search}
+              searchResult={this.state.searchResult}
+        />
         <Persik id="persik" go={this.go}/>
       </View>
     );

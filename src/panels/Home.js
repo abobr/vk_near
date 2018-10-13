@@ -21,7 +21,16 @@ const Home = props => (
 			</ListItem>
 			<ListItem>{`Latitude: ${props.geo.lat}`}</ListItem>
       <ListItem>{`Longitude: ${props.geo.long}`}</ListItem>
+      <Div>
+        <Button size="xl" onClick={props.token && props.token.access_token ? props.search : () => {}} level={props.token && props.token.access_token ? "primary" : "secondary"}>Search</Button>
+      </Div>
 		</Group>}
+
+		{props.searchResult &&
+			<Group>
+				{`Results of search: ${props.searchResult.response ? props.searchResult.response.length : 'undefined'}`}
+			</Group>
+		}
 
 		<Group title="Navigation Example">
 			<Div>
@@ -36,6 +45,8 @@ const Home = props => (
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
+	search: PropTypes.func,
+	searchResult: PropTypes.any,
 	geo: PropTypes.shape({
     available: PropTypes.number,
     lat: PropTypes.any,
