@@ -14,13 +14,13 @@ const Home = props => (
 				{`${props.fetchedUser.first_name} ${props.fetchedUser.last_name}`}
 			</ListItem>
 			<ListItem>
-        {props.token}
+        props.token
 			</ListItem>
-			<ListItem multiline>
+			<ListItem>
 				{`Geoposition is available: ${props.geo.available ? 'true' : 'false'}`}
-        {`Latitude: ${props.geo.lat}`}
-        {`Longitude: ${props.geo.long}`}
 			</ListItem>
+			<ListItem>{`Latitude: ${props.geo.lat}`}</ListItem>
+      <ListItem>{`Longitude: ${props.geo.long}`}</ListItem>
 		</Group>}
 
 		<Group title="Navigation Example">
