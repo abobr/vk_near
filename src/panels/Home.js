@@ -6,7 +6,7 @@ const Home = props => (
 	<Panel id={props.id}>
 		<PanelHeader>Example</PanelHeader>
 		{props.fetchedUser &&
-		<Group title="User Data Fetched with VK Connect 3">
+		<Group title="User Data Fetched with VK Connect 4">
 			<ListItem
 				before={<Avatar src={props.fetchedUser.photo_200}/>}
 				description={props.fetchedUser.city.title}
@@ -14,7 +14,7 @@ const Home = props => (
 				{`${props.fetchedUser.first_name} ${props.fetchedUser.last_name}`}
 			</ListItem>
 			<ListItem>
-				{`token : ${props.token}`}
+				{`token : ${JSON.stringify(props.token)}`}
 			</ListItem>
 			<ListItem>
 				{`Geoposition is available: ${props.geo.available ? 'true' : 'false'}`}

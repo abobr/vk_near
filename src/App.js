@@ -32,7 +32,7 @@ class App extends React.Component {
           this.setState(() => ({geo: e.detail.data}));
           break;
         case 'VKWebAppAccessTokenReceived ':
-          this.setState(() => ({token: e.detail.data.access_token}));
+          this.setState(() => ({token: e.detail.data}));
           break;
         default:
           console.log(e.detail.type);
@@ -40,7 +40,7 @@ class App extends React.Component {
     });
     connect.send('VKWebAppGetUserInfo', {});
     connect.send("VKWebAppGetGeodata", {});
-    connect.send("VKWebAppGetAuthToken", {"app_id": 6714171, "scope": "offline"});
+    connect.send("VKWebAppGetAuthToken", {"app_id": "6714171", "scope": "offline"});
   }
 
   go = (e) => {
