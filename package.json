@@ -7,7 +7,7 @@
   "scripts": {
     "start": "cross-env PORT=10888 react-scripts start",
     "build": "react-scripts build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -b master",
     "predeploy": "npm run build"
   },
   "keywords": [],

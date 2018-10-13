@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       activePanel: 'home',
       fetchedUser: null,
+      token: null,
       geo: {
         available: 0,
         lat: null,
@@ -30,12 +31,16 @@ class App extends React.Component {
         case 'VKWebAppGeodataResult':
           this.setState(() => ({geo: e.detail.data}));
           break;
+        case 'VKWebAppAccessTokenReceived ':
+          this.setState(() => ({token: e.detail.data.access_token}));
+          break;
         default:
           console.log(e.detail.type);
       }
     });
     connect.send('VKWebAppGetUserInfo', {});
     connect.send("VKWebAppGetGeodata", {});
+    connect.send("VKWebAppGetAuthToken", {"app_id": 6714171, "scope": "offline"});
   }
 
   go = (e) => {
@@ -45,7 +50,7 @@ class App extends React.Component {
   render() {
     return (
       <View activePanel={this.state.activePanel}>
-        <Home id="home" fetchedUser={this.state.fetchedUser} geo={this.state.geo} go={this.go}/>
+        <Home id="home" fetchedUser={this.state.fetchedUser} geo={this.state.geo} token={this.state.token} go={this.go}/>
         <Persik id="persik" go={this.go}/>
       </View>
     );

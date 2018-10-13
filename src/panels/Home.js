@@ -13,6 +13,9 @@ const Home = props => (
 			>
 				{`${props.fetchedUser.first_name} ${props.fetchedUser.last_name}`}
 			</ListItem>
+			<ListItem description={props.token}>
+				Test Item
+			</ListItem>
 			<ListItem multiline>
 				{`Geoposition is available: ${props.geo.available ? 'true' : 'false'}`}
         {`Latitude: ${props.geo.lat}`}
@@ -38,6 +41,7 @@ Home.propTypes = {
     lat: PropTypes.any,
     long: PropTypes.any
 	}),
+	token: PropTypes.string,
 	fetchedUser: PropTypes.shape({
 		photo_200: PropTypes.string,
 		first_name: PropTypes.string,
